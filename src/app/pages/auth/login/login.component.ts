@@ -44,7 +44,7 @@ export class LoginComponent {
     const control = this.form.get(controlName);
     return (
       Boolean(control?.invalid) &&
-      (this.isSubmitted || Boolean(control?.touched))
+      (this.isSubmitted || Boolean(control?.touched) || Boolean(control?.dirty))
     );
   }
 
