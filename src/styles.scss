@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Varela Round";
+  src: url("./app/fonts/VarelaRound.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /* COLORS */
+  --MAIN-BG-COLOR: #000a1a;
+  --WHITE-TEXT-COLOR: #efefef;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  font-family: "Varela Round", sans-serif;
+  background-color: var(--MAIN-BG-COLOR);
+  color: var(--WHITE-TEXT-COLOR);
+}
