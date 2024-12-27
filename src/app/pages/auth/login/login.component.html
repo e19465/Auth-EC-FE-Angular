@@ -4,30 +4,60 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
-    <input
-      type="email"
-      required
-      name="login-email-name"
-      id="login-email-id"
-      formControlName="email"
-      placeholder="john@gmail.com"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
-    />
-    <input
-      type="password"
-      required
-      name="login-password-name"
-      id="login-password-id"
-      formControlName="password"
-      placeholder="password"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
-    />
+    <!-- Email Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="email"
+        required
+        name="login-email-name"
+        id="login-email-id"
+        formControlName="email"
+        placeholder="Your Email"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="
+          hasDisplayableError('email') &&
+          form.controls['email'].hasError('required')
+        "
+      >
+        Please enter your email
+      </div>
+    </div>
+
+    <!-- Password Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="password"
+        required
+        name="login-password-name"
+        id="login-password-id"
+        formControlName="password"
+        placeholder="Password"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="
+          hasDisplayableError('password') &&
+          form.controls['password'].hasError('required')
+        "
+      >
+        Please enter your password
+      </div>
+    </div>
+
+    <!-- Login Button -->
     <button
       type="submit"
-      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+      [disabled]="loading || form.invalid"
     >
       {{ loading ? "Loading..." : "Login" }}
     </button>
+
+    <!-- Don't have an account? Sign up -->
     <div class="w-full flex items-center justify-center gap-2">
       <span class="text-blue-900">Don't have an account?</span>
       <a [routerLink]="['/', 'sign-up']" class="text-blue-500 underline"

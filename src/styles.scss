@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "ngx-toastr/toastr";
 
 @font-face {
   font-family: "Varela Round";
@@ -25,4 +26,22 @@ body {
   font-family: "Varela Round", sans-serif;
   background-color: var(--MAIN-BG-COLOR);
   color: var(--WHITE-TEXT-COLOR);
+}
+
+// ** customize ngx-toastr ** //
+.toast-success {
+  min-width: 400px;
+  max-width: 600px;
+  font-size: 16px;
+  border-radius: 10px !important;
+  padding-right: 25px !important;
+  background-color: rgb(26, 150, 26) !important;
+}
+
+.toast-error {
+  min-width: 400px;
+  max-width: 600px;
+  font-size: 16px;
+  border-radius: 10px !important;
+  padding-right: 25px !important;
 }

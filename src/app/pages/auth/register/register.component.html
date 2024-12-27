@@ -4,41 +4,111 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
   >
-    <input
-      type="text"
-      required
-      formControlName="name"
-      placeholder="Name"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md w-full focus:ring-2 focus:ring-blue-500"
-    />
-    <input
-      type="email"
-      required
-      formControlName="email"
-      placeholder="john@gmail.com"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
-    />
-    <input
-      type="password"
-      required
-      formControlName="password"
-      placeholder="Password"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
-    />
-    <input
-      type="password"
-      required
-      formControlName="confirmPassword"
-      placeholder="Confirm Password"
-      class="text-sm sm:text-base p-2 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
-    />
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <!-- Full Name Input -->
+      <input
+        type="text"
+        required
+        formControlName="fullName"
+        placeholder="Your Name"
+        class="text-sm sm:text-base p-2 border text-blue-900 border-blue-900 rounded-md w-full focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="
+          hasDisplayableError('fullName') &&
+          form.controls['fullName'].hasError('required')
+        "
+      >
+        Please enter your name
+      </div>
+    </div>
+
+    <!-- Email Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="email"
+        required
+        formControlName="email"
+        placeholder="Your Email"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="hasDisplayableError('email')"
+      >
+        <ng-container [ngSwitch]="form.controls['email'].errors | firstKey">
+          <div *ngSwitchCase="'required'">Please enter your email</div>
+          <div *ngSwitchCase="'email'">Please enter a valid email</div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Password Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="password"
+        required
+        formControlName="password"
+        placeholder="Password"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="hasDisplayableError('password')"
+      >
+        <ng-container [ngSwitch]="form.controls['password'].errors | firstKey">
+          <div *ngSwitchCase="'required'">Please enter your password</div>
+          <div *ngSwitchCase="'minlength'">
+            Password must be at least 6 characters long
+          </div>
+          <div *ngSwitchCase="'uppercase'">
+            Password must include at least one uppercase letter
+          </div>
+          <div *ngSwitchCase="'lowercase'">
+            Password must include at least one lowercase letter
+          </div>
+          <div *ngSwitchCase="'number'">
+            Password must include at least one number
+          </div>
+          <div *ngSwitchCase="'specialCharacter'">
+            Password must include at least one special character
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Confirm Password Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="password"
+        required
+        formControlName="confirmPassword"
+        placeholder="Confirm Password"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="hasDisplayableError('confirmPassword')"
+      >
+        <div
+          *ngIf="form.controls['confirmPassword'].hasError('passwordMismatch')"
+        >
+          Passwords does not match
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Button -->
     <button
       type="submit"
-      [disabled]="loading"
-      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300"
+      [disabled]="loading || form.invalid"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {{ loading ? "Loading..." : "Register" }}
     </button>
+
+    <!-- Already have an account? Sign in -->
     <div class="w-full flex items-center justify-center gap-2">
       <span class="text-blue-900">Already have an account?</span>
       <a [routerLink]="['/', 'sign-in']" class="text-blue-500 underline">

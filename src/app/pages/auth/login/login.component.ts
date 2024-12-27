@@ -7,11 +7,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [AuthLayoutComponent, RouterLink, ReactiveFormsModule],
+  imports: [AuthLayoutComponent, RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -19,16 +21,29 @@ export class LoginComponent {
   imageSrc: string = '/images/loginpc.png';
   title: string = 'Sign In';
   loading: boolean = false;
+  isSubmitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.form = this.formBuilder.group({
-      email: this.formBuilder.control('', [
-        Validators.required,
-        Validators.email,
-      ]),
+      email: this.formBuilder.control('', [Validators.required]),
       password: this.formBuilder.control('', [Validators.required]),
     });
   }
 
-  onSubmit() {}
+  //** Check for displayble error in register form  **//
+  hasDisplayableError(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return (
+      Boolean(control?.invalid) &&
+      (this.isSubmitted || Boolean(control?.touched))
+    );
+  }
+
+  onSubmit() {
+    this.isSubmitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    this.toastr.success('Login Successful');
+  }
 }
