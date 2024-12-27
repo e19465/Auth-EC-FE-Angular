@@ -8,7 +8,9 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  logOut() {}
+  logOut() {
+    this.authService.logOutUser();
+  }
 }

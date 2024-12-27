@@ -8,12 +8,14 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
+    provideAnimations(),
     provideToastr({
       timeOut: 5000, // Duration before the toast disappears
       positionClass: 'toast-top-right', // Position of the toast

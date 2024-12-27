@@ -8,10 +8,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FirstKeyPipe } from '../../../shared/pipes/first-key.pipe';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../shared/services/auth.service';
+import { ResponseHandlerService } from '../../../shared/services/response-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -80,7 +82,13 @@ export class RegisterComponent {
   }
 
   // ** Form Validation inside Constructor ** //
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private responseHandlerService: ResponseHandlerService,
+    private router: Router
+  ) {
     this.form = this.formBuilder.group(
       {
         fullName: this.formBuilder.control('', Validators.required),
@@ -94,6 +102,8 @@ export class RegisterComponent {
           this.passwordComplexityValidator(), // custom validator for password complexity
         ]),
         confirmPassword: this.formBuilder.control('', [Validators.required]), // confirm password
+        gender: ['Male', Validators.required], // default value
+        dateOfBirth: ['', Validators.required], // Date of Birth is required
       },
       {
         validators: this.passwordMatchValidator,
@@ -110,11 +120,28 @@ export class RegisterComponent {
     );
   }
 
+  // ** Submit Form ** //
   onSubmit() {
     this.isSubmitted = true;
     if (this.form.invalid) {
-      alert('Please fill in all required fields');
+      this.toastr.error('Please fill all the required fields');
     }
-    this.toastr.success('Registration Successful');
+    this.loading = true;
+    this.authService.registerUser(this.form.value).subscribe({
+      next: (response: any) => {
+        this.responseHandlerService.handleSuccessMassage(
+          response,
+          'Registration successful'
+        );
+        this.loading = false;
+        this.form.reset();
+        this.isSubmitted = false;
+        this.router.navigateByUrl('/sign-in');
+      },
+      error: (error: any) => {
+        this.responseHandlerService.handleError(error);
+        this.loading = false;
+      },
+    });
   }
 }

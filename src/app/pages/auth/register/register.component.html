@@ -99,6 +99,49 @@
       </div>
     </div>
 
+    <!-- Gender (Male/Female/Other) radio buttons -->
+    <div
+      class="w-full flex flex-col sm:flex-row items-center justify-start gap-2 sm:gap-8 text-blue-900"
+    >
+      <label>Gender:</label>
+      <div class="flex flex-row items-center gap-4">
+        <label>
+          <input type="radio" name="gender" value="Male" checked /> Male
+        </label>
+        <label>
+          <input type="radio" name="gender" value="Female" /> Female
+        </label>
+        <label>
+          <input type="radio" name="gender" value="Other" /> Other
+        </label>
+      </div>
+    </div>
+
+    <!-- Date of Birth -->
+    <div
+      class="w-full flex flex-col gap-2 items-center justify-start text-blue-900"
+    >
+      <div
+        class="w-full flex flex-col sm:flex-row gap-2 sm:gap-8 justify-start items-center"
+      >
+        <label>Date of Birth:</label>
+        <input
+          type="date"
+          required
+          formControlName="dateOfBirth"
+          class="text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="hasDisplayableError('dob')"
+      >
+        <div *ngIf="form.controls['dob'].hasError('required')">
+          Please enter your date of birth
+        </div>
+      </div>
+    </div>
+
     <!-- Register Button -->
     <button
       type="submit"

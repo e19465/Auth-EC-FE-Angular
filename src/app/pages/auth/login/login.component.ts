@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../shared/services/auth.service';
+import { ResponseHandlerService } from '../../../shared/services/response-handler.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,13 @@ export class LoginComponent {
   loading: boolean = false;
   isSubmitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private authService: AuthService,
+    private responseHandlerService: ResponseHandlerService,
+    private router: Router
+  ) {
     this.form = this.formBuilder.group({
       email: this.formBuilder.control('', [Validators.required]),
       password: this.formBuilder.control('', [Validators.required]),
@@ -39,11 +47,29 @@ export class LoginComponent {
     );
   }
 
+  //** Submit the login form **//
   onSubmit() {
     this.isSubmitted = true;
     if (this.form.invalid) {
-      return;
+      this.toastr.error('Please fill all the required fields');
     }
-    this.toastr.success('Login Successful');
+    this.loading = true;
+    this.authService.loginUser(this.form.value).subscribe({
+      next: (response: any) => {
+        this.responseHandlerService.handleSuccessMassage(
+          response,
+          'Login Successful'
+        );
+        this.authService.saveTokensToLocalStorage(response);
+        this.loading = false;
+        this.isSubmitted = false;
+        this.form.reset();
+        this.router.navigateByUrl('/');
+      },
+      error: (error: any) => {
+        this.responseHandlerService.handleError(error);
+        this.loading = false;
+      },
+    });
   }
 }
