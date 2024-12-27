@@ -27,9 +27,11 @@
     </div>
 
     <!-- Password Input -->
-    <div class="w-full flex flex-col items-center justify-center gap-1">
+    <div
+      class="w-full flex flex-col items-center justify-center gap-1 relative"
+    >
       <input
-        type="password"
+        [type]="passwordVisible ? 'text' : 'password'"
         required
         name="login-password-name"
         id="login-password-id"
@@ -46,6 +48,17 @@
       >
         Please enter your password
       </div>
+      <!-- Toggle Button for Password Visibility -->
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="absolute right-2 top-[23px] transform -translate-y-1/2 text-blue-900"
+      >
+        <i
+          class="fas"
+          [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"
+        ></i>
+      </button>
     </div>
 
     <!-- Login Button -->

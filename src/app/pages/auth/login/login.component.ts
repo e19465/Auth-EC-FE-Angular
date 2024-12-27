@@ -24,6 +24,7 @@ export class LoginComponent {
   title: string = 'Sign In';
   loading: boolean = false;
   isSubmitted: boolean = false;
+  passwordVisible: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,6 +46,11 @@ export class LoginComponent {
       Boolean(control?.invalid) &&
       (this.isSubmitted || Boolean(control?.touched))
     );
+  }
+
+  //** Toggle password visibility **//
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   //** Submit the login form **//

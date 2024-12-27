@@ -33,6 +33,8 @@ export class RegisterComponent {
   title: string = 'Sign Up';
   loading: boolean = false;
   isSubmitted: boolean = false;
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
 
   // ** Validate Between Password & Confirm Password ** //
   private passwordMatchValidator: ValidatorFn = (
@@ -118,6 +120,16 @@ export class RegisterComponent {
       Boolean(control?.invalid) &&
       (this.isSubmitted || Boolean(control?.touched))
     );
+  }
+
+  //** Toggle password visibility **//
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  //** Toggle confirm password visibility **//
+  toggleConfirmPasswordVisibility() {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
   // ** Submit Form ** //

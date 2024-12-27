@@ -45,9 +45,11 @@
     </div>
 
     <!-- Password Input -->
-    <div class="w-full flex flex-col items-center justify-center gap-1">
+    <div
+      class="relative w-full flex flex-col items-center justify-center gap-1"
+    >
       <input
-        type="password"
+        [type]="passwordVisible ? 'text' : 'password'"
         required
         formControlName="password"
         placeholder="Password"
@@ -76,12 +78,25 @@
           </div>
         </ng-container>
       </div>
+      <!-- Toggle Button for Password Visibility -->
+      <button
+        type="button"
+        (click)="togglePasswordVisibility()"
+        class="absolute right-2 top-[23px] transform -translate-y-1/2 text-blue-900"
+      >
+        <i
+          class="fas"
+          [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'"
+        ></i>
+      </button>
     </div>
 
     <!-- Confirm Password Input -->
-    <div class="w-full flex flex-col items-center justify-center gap-1">
+    <div
+      class="relative w-full flex flex-col items-center justify-center gap-1"
+    >
       <input
-        type="password"
+        [type]="confirmPasswordVisible ? 'text' : 'password'"
         required
         formControlName="confirmPassword"
         placeholder="Confirm Password"
@@ -97,6 +112,17 @@
           Passwords does not match
         </div>
       </div>
+      <!-- Toggle Button for Password Visibility -->
+      <button
+        type="button"
+        (click)="toggleConfirmPasswordVisibility()"
+        class="absolute right-2 top-[23px] transform -translate-y-1/2 text-blue-900"
+      >
+        <i
+          class="fas"
+          [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'"
+        ></i>
+      </button>
     </div>
 
     <!-- Gender (Male/Female/Other) radio buttons -->
