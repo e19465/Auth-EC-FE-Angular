@@ -13,6 +13,7 @@ import { ApplyForMaternityLeaveComponent } from './pages/authorized/apply-for-ma
 import { AdminAndTeacherComponent } from './pages/authorized/admin-and-teacher/admin-and-teacher.component';
 import { AdminOnlyComponent } from './pages/authorized/admin-only/admin-only.component';
 import { authGuard } from './shared/guards/auth.guard';
+import { claimReqUtils } from './shared/utils/claimReqUtils';
 
 export const routes: Routes = [
   {
@@ -36,30 +37,51 @@ export const routes: Routes = [
       {
         path: 'admin-only',
         component: AdminOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.adminOnly,
+        },
       },
       {
         path: 'admin-and-teacher',
         component: AdminAndTeacherComponent,
+        data: {
+          claimReq: claimReqUtils.adminAndTeacher,
+        },
       },
       {
         path: 'apply-for-maternity-leave',
         component: ApplyForMaternityLeaveComponent,
+        data: {
+          claimReq: claimReqUtils.maternityLeaveApplicable,
+        },
       },
       {
         path: 'library-members-only',
         component: LibraryMembersOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.libraryMembersOnly,
+        },
       },
       {
         path: 'under-ten-female-only',
         component: UnderTenFemaleOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.genderFemaleAgeUnderTen,
+        },
       },
       {
         path: 'student-only',
         component: StudentOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.studentOnly,
+        },
       },
       {
         path: 'teacher-only',
         component: TeacherOnlyComponent,
+        data: {
+          claimReq: claimReqUtils.teacherOnly,
+        },
       },
     ],
   },

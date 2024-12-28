@@ -9,6 +9,20 @@ export const APP_USER_ROLES = {
   STUDENT: 'Student',
 };
 
+export const USER_GENDER = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+  OTHER: 'Other',
+};
+
+export const USER_CLAIMS = {
+  ROLE: 'Role',
+  GENDER: 'Gender',
+  USER_ID: 'UserId',
+  LIBRARY_ID: 'LibraryId',
+  AGE: 'Age',
+};
+
 export const HTTP_STATUS_CODES = {
   HTTP_200_OK: 200,
   HTTP_201_CREATED: 201,

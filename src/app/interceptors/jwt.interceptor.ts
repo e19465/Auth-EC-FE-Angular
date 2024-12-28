@@ -21,7 +21,11 @@ export const jWTInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authRequest).pipe(
     catchError((error: any) => {
-      if (error.status === HTTP_STATUS_CODES.HTTP_401_UNAUTHORIZED) {
+      if (
+        error.status ===
+        (HTTP_STATUS_CODES.HTTP_401_UNAUTHORIZED ||
+          HTTP_STATUS_CODES.HTTP_403_FORBIDDEN)
+      ) {
         if (!isRefreshing && authService.isUserLoggedIn()) {
           isRefreshing = true;
           return authService.refreshTokens().pipe(
