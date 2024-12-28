@@ -14,10 +14,10 @@ export class ResponseHandlerService {
     console.error('Error occurred while processing request', error);
   }
 
-  handleSuccessMassage(response: any, fallbackMessage: string) {
+  handleSuccessMassage(response: any, fallbackMessage: string | null = null) {
     if (response && response?.message) {
       this.toastr.success(response.message);
-    } else {
+    } else if (fallbackMessage) {
       this.toastr.success(fallbackMessage);
     }
   }

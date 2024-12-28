@@ -21,6 +21,13 @@ export class AuthService {
     return this.httpClient.post(this.baseUrl + '/user/sign-in', formData);
   }
 
+  // ** Refresh tokens ** //
+  refreshTokens() {
+    return this.httpClient.post(this.baseUrl + '/user/refresh-jwt', {
+      refreshToken: this.getRefreshToken(),
+    });
+  }
+
   // ** Save tokens to local storage ** //
   saveTokensToLocalStorage(tokens: any) {
     if (tokens.accessToken) {
@@ -45,5 +52,10 @@ export class AuthService {
   logOutUser() {
     localStorage.clear();
     this.router.navigateByUrl('/sign-in');
+  }
+
+  // ** Check if the user is logged in ** //
+  isUserLoggedIn() {
+    return !!this.getAccessToken() && !!this.getRefreshToken();
   }
 }

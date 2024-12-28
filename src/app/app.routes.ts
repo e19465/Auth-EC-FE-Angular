@@ -12,6 +12,7 @@ import { LibraryMembersOnlyComponent } from './pages/authorized/library-members-
 import { ApplyForMaternityLeaveComponent } from './pages/authorized/apply-for-maternity-leave/apply-for-maternity-leave.component';
 import { AdminAndTeacherComponent } from './pages/authorized/admin-and-teacher/admin-and-teacher.component';
 import { AdminOnlyComponent } from './pages/authorized/admin-only/admin-only.component';
+import { authGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -25,8 +26,8 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    canActivate: [],
-    canActivateChild: [],
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',

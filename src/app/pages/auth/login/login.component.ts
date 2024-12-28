@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
 import { Router, RouterLink } from '@angular/router';
 import {
@@ -18,7 +18,7 @@ import { ResponseHandlerService } from '../../../shared/services/response-handle
   imports: [AuthLayoutComponent, RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
   imageSrc: string = '/images/loginpc.png';
   title: string = 'Sign In';
@@ -37,6 +37,13 @@ export class LoginComponent {
       email: this.formBuilder.control('', [Validators.required]),
       password: this.formBuilder.control('', [Validators.required]),
     });
+  }
+
+  //** Initialize the component **//
+  ngOnInit(): void {
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   //** Check for displayble error in register form  **//

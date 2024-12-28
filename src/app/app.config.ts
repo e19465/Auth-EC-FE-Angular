@@ -9,6 +9,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { jWTInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +26,6 @@ export const appConfig: ApplicationConfig = {
       easeTime: 300, // Animation ease time
       enableHtml: true, // Enable HTML content in toast
     }),
-    provideHttpClient(withFetch(), withInterceptors([])),
+    provideHttpClient(withFetch(), withInterceptors([jWTInterceptor])),
   ],
 };

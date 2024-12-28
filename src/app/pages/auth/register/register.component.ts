@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthLayoutComponent } from '../../../layouts/auth-layout/auth-layout.component';
 import {
   AbstractControl,
@@ -27,7 +27,7 @@ import { ResponseHandlerService } from '../../../shared/services/response-handle
   ],
   templateUrl: './register.component.html',
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   form: FormGroup;
   imageSrc: string = '/images/loginbgsec.png';
   title: string = 'Sign Up';
@@ -111,6 +111,13 @@ export class RegisterComponent {
         validators: this.passwordMatchValidator,
       }
     );
+  }
+
+  //** Initialize the component **//
+  ngOnInit(): void {
+    if (this.authService.isUserLoggedIn()) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   //** Check for displayble error in register form  **//
