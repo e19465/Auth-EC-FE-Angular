@@ -61,11 +61,40 @@
     </a>
   </div>
 
-  <button
+  <div
+    class="w-full h-full flex items-center justify-center gap-4 flex-col bg-black text-white p-6"
     *ngIf="!loading && !success && !failed && !invaliadLink"
-    (click)="confirmEmailUser(email, code)"
-    class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out border border-blue-200 uppercase"
   >
-    Click here to confirm your email
-  </button>
+    <!-- Header Section -->
+    <div class="text-center w-full sm:w-[60%] md:w-[40%]">
+      <h1 class="text-3xl font-bold text-blue-300">Welcome!</h1>
+      <p class="text-lg text-gray-300 mt-2">
+        You're just one step away from completing your registration. Please
+        verify your email to activate your account and unlock full access.
+      </p>
+      <p class="text-red-500 text-sm mt-2">
+        Email verification is a crucial step to ensure the security of your
+        account.
+      </p>
+    </div>
+
+    <!-- Action Section -->
+    <div class="mt-8 flex flex-col items-center gap-4">
+      <button
+        (click)="confirmEmailUser(email, code)"
+        class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out border border-blue-200 uppercase"
+      >
+        Click here to confirm your email
+      </button>
+      <p class="text-sm text-gray-400 mt-4">
+        Didn't receive the email? Check your spam folder or
+        <a
+          [routerLink]="['/', 'send-verification-email']"
+          class="text-blue-300 underline hover:text-blue-500"
+        >
+          resend the verification email </a
+        >.
+      </p>
+    </div>
+  </div>
 </div>
