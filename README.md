@@ -49,3 +49,19 @@ This project showcases a user registration system with authentication and author
    npm run dev
    ```
 2. Open your browser and navigate to `http://localhost:4200`.
+
+
+
+## Corresponding Backend
+
+This project is designed to work seamlessly with its corresponding backend application built in ASP.NET core 8 Web API. The backend repository can be found here:
+
+👉 [AuthEC-BE-Best-Practices](https://github.com/e19465/AuthEC-BE-Best-Practices)
+
+The backend seamlessly handle all front end requests, including proper Authentication & Authorization
+
+---
+
+## Contribution
+
+Contributions are welcome! If you encounter any issues or have suggestions for improvement, feel free to create an issue or submit a pull request.
