@@ -2,15 +2,16 @@
   class="w-full h-full flex items-center justify-center gap-4 flex-col bg-black text-white p-4"
 >
   <!-- This is visible when the email verification is in progress -->
-  <div class="w-full flex flex-col items-center gap-4">
+  <div
+    class="w-full flex flex-col items-center gap-4"
+    *ngIf="loading && !success && !failed && !invaliadLink"
+  >
     <img
-      *ngIf="loading && !success && !failed"
       [src]="gifSrc"
       alt="logo"
       class="w-full h-[200px] object-cover rounded-lg shadow-md"
     />
     <p
-      *ngIf="loading && !success && !failed"
       class="text-lg capitalize text-blue-300 font-bold tracking-wide animate-pulse"
     >
       Hold tight! We are processing your email verification. This may take a few
@@ -20,7 +21,7 @@
 
   <!-- This is visible when the email verification is successful -->
   <div
-    *ngIf="success && !loading && !failed"
+    *ngIf="success && !loading && !failed && !invaliadLink"
     class="text-lg text-blue-500 font-bold flex flex-col items-center gap-4 bg-gray-800 p-6 rounded-lg shadow-lg"
   >
     <p class="text-center">🎉 Email verification successful!</p>
@@ -34,7 +35,7 @@
 
   <!-- This is visible when the email verification has failed -->
   <div
-    *ngIf="failed && !loading && !success"
+    *ngIf="failed && !loading && !success && !invaliadLink"
     class="text-lg text-red-500 font-bold flex flex-col items-center gap-4 bg-gray-800 p-6 rounded-lg shadow-lg"
   >
     <p class="text-center">❌ Email verification failed</p>
@@ -59,4 +60,12 @@
       Resend Verification Email
     </a>
   </div>
+
+  <button
+    *ngIf="!loading && !success && !failed && !invaliadLink"
+    (click)="confirmEmailUser(email, code)"
+    class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out border border-blue-200 uppercase"
+  >
+    Click here to confirm your email
+  </button>
 </div>

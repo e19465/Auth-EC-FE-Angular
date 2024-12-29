@@ -13,7 +13,7 @@ import { ResponseHandlerService } from '../../../shared/services/response-handle
 export class ConfirmEmailComponent implements OnInit {
   email: string | null = null;
   code: string | null = null;
-  loading: boolean = true;
+  loading: boolean = false;
   gifSrc: string = '/images/loading.gif';
   success: boolean = false;
   failed: boolean = false;
@@ -32,13 +32,10 @@ export class ConfirmEmailComponent implements OnInit {
       this.router.navigateByUrl('/');
     } else {
       this.route.queryParamMap.subscribe((params) => {
-        this.email = params.get('email');
-        this.code = params.get('code');
+        this.email = params.get('email') || '';
+        this.code = params.get('code') || '';
 
-        if (this.email && this.code) {
-          this.confirmEmail(this.email, this.code);
-        } else {
-          this.loading = false;
+        if (!this.email && !this.code) {
           this.invaliadLink = true;
         }
       });
@@ -46,10 +43,19 @@ export class ConfirmEmailComponent implements OnInit {
   }
 
   //** Confirm email **//
-  confirmEmail(email: string, code: string) {
+  confirmEmailUser(email: string | null, code: string | null) {
+    if (!email || !code) {
+      this.invaliadLink = true;
+      return;
+    }
+    this.loading = true;
+    this.failed = false;
+    this.success = false;
+    this.invaliadLink = false;
     this.authService.confirmEmail(email, code).subscribe({
       next: (res: any) => {
         this.loading = false;
+        this.failed = false;
         this.success = true;
         this.responseHandlerService.handleSuccessMassage(
           res,

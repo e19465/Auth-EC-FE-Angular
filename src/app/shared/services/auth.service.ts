@@ -52,6 +52,13 @@ export class AuthService {
     });
   }
 
+  test(email: string, code: string) {
+    return this.httpClient.post(this.baseUrl + '/user/test', {
+      email: email,
+      code: code,
+    });
+  }
+
   // ** Save tokens to local storage ** //
   saveTokensToLocalStorage(tokens: any) {
     if (this.platformService.isBrowser()) {

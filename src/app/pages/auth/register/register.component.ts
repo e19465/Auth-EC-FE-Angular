@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
   isSubmitted: boolean = false;
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
+  success: boolean = false;
 
   // ** Validate Between Password & Confirm Password ** //
   private passwordMatchValidator: ValidatorFn = (
@@ -145,6 +146,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.invalid) {
       this.toastr.error('Please fill all the required fields');
     }
+    this.success = false;
     this.loading = true;
     this.authService.registerUser(this.form.value).subscribe({
       next: (response: any) => {
@@ -153,13 +155,14 @@ export class RegisterComponent implements OnInit {
           'Registration successful'
         );
         this.loading = false;
+        this.success = true;
         this.form.reset();
         this.isSubmitted = false;
-        this.router.navigateByUrl('/sign-in');
       },
       error: (error: any) => {
         this.responseHandlerService.handleError(error);
         this.loading = false;
+        this.success = false;
       },
     });
   }
