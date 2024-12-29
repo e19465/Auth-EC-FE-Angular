@@ -18,9 +18,10 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     provideToastr({
-      timeOut: 5000, // Duration before the toast disappears
+      timeOut: 4000, // Duration before the toast disappears
       positionClass: 'toast-top-right', // Position of the toast
       preventDuplicates: true, // Prevent duplicate toasts
+      disableTimeOut: false, // Disable time out
       progressBar: true, // Show progress bar
       closeButton: true, // Show close button
       easeTime: 300, // Animation ease time

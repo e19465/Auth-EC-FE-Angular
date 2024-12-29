@@ -1,0 +1,62 @@
+<div
+  class="w-full h-full flex items-center justify-center gap-4 flex-col bg-black text-white p-4"
+>
+  <!-- This is visible when the email verification is in progress -->
+  <div class="w-full flex flex-col items-center gap-4">
+    <img
+      *ngIf="loading && !success && !failed"
+      [src]="gifSrc"
+      alt="logo"
+      class="w-full h-[200px] object-cover rounded-lg shadow-md"
+    />
+    <p
+      *ngIf="loading && !success && !failed"
+      class="text-lg capitalize text-blue-300 font-bold tracking-wide animate-pulse"
+    >
+      Hold tight! We are processing your email verification. This may take a few
+      moments.
+    </p>
+  </div>
+
+  <!-- This is visible when the email verification is successful -->
+  <div
+    *ngIf="success && !loading && !failed"
+    class="text-lg text-blue-500 font-bold flex flex-col items-center gap-4 bg-gray-800 p-6 rounded-lg shadow-lg"
+  >
+    <p class="text-center">🎉 Email verification successful!</p>
+    <a
+      [routerLink]="['/', 'sign-in']"
+      class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out flex items-center justify-center"
+    >
+      Sign In
+    </a>
+  </div>
+
+  <!-- This is visible when the email verification has failed -->
+  <div
+    *ngIf="failed && !loading && !success"
+    class="text-lg text-red-500 font-bold flex flex-col items-center gap-4 bg-gray-800 p-6 rounded-lg shadow-lg"
+  >
+    <p class="text-center">❌ Email verification failed</p>
+    <a
+      [routerLink]="['/', 'send-verification-email']"
+      class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out flex items-center justify-center"
+    >
+      Resend Verification Email
+    </a>
+  </div>
+
+  <!-- This is visible when the link is invalid -->
+  <div
+    *ngIf="!failed && !loading && !success && invaliadLink"
+    class="text-lg text-red-500 font-bold flex flex-col items-center gap-4 bg-gray-800 p-6 rounded-lg shadow-lg"
+  >
+    <p class="text-center">⚠️ Email verification link is invalid</p>
+    <a
+      [routerLink]="['/', 'send-verification-email']"
+      class="text-white bg-blue-900 px-6 py-3 rounded-md shadow-md hover:bg-blue-600 transition duration-200 ease-in-out flex items-center justify-center"
+    >
+      Resend Verification Email
+    </a>
+  </div>
+</div>

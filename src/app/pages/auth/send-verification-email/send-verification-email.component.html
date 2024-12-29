@@ -1,0 +1,75 @@
+<app-auth-layout [imageSrc]="imageSrc" [title]="title">
+  <form
+    class="flex flex-col gap-4 w-full"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <div
+      *ngIf="success && !loading"
+      class="text-sm text-blue-500 font-bold flex flex-col gap-2 border border-blue-500 p-4 rounded-md"
+    >
+      <p class="text-center">
+        We have sent you an email with a link to verify your account. Please
+        check your inbox and click on the link to verify your account.
+      </p>
+    </div>
+
+    <div
+      *ngIf="failed && !loading"
+      class="text-sm text-red-500 font-bold flex flex-col gap-2 border border-red-500 p-4 rounded-md"
+    >
+      <p class="text-center">
+        We were unable to send you an email. Please try again later.
+      </p>
+    </div>
+
+    <!-- Email Input -->
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <input
+        type="email"
+        required
+        name="send-verification-email-name"
+        id="send-verification-email-id"
+        formControlName="email"
+        placeholder="Email"
+        class="w-full text-sm sm:text-base p-2 text-blue-900 border border-blue-900 rounded-md focus:ring-2 focus:ring-blue-500"
+      />
+      <div
+        class="text-red-500 text-[12px] w-full text-left pl-[5px]"
+        *ngIf="
+          hasDisplayableError('email') &&
+          form.controls['email'].hasError('required')
+        "
+      >
+        Please enter your email
+      </div>
+    </div>
+
+    <!-- Send Button -->
+    <button
+      type="submit"
+      class="bg-blue-900 text-white p-2 rounded-md transition-colors duration-300 hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed"
+      [disabled]="loading || form.invalid"
+    >
+      {{ loading ? "Sending..." : "Send" }}
+    </button>
+
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <!-- Already have an account? Sign in -->
+      <div class="w-full flex items-center justify-center gap-2">
+        <span class="text-blue-900">Already have an account?</span>
+        <a [routerLink]="['/', 'sign-in']" class="text-blue-500 underline"
+          >Sign in
+        </a>
+      </div>
+
+      <!-- Don't have an account? Sign up -->
+      <div class="w-full flex items-center justify-center gap-2">
+        <span class="text-blue-900">Don't have an account?</span>
+        <a [routerLink]="['/', 'sign-up']" class="text-blue-500 underline"
+          >Sign up
+        </a>
+      </div>
+    </div>
+  </form>
+</app-auth-layout>

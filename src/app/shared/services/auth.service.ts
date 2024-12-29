@@ -34,6 +34,24 @@ export class AuthService {
     });
   }
 
+  // ** Send verification email ** //
+  sendVerificationEmail(email: string) {
+    return this.httpClient.post(
+      this.baseUrl + '/user/send-verification-email',
+      {
+        email: email,
+      }
+    );
+  }
+
+  // ** Confirm email ** //
+  confirmEmail(email: string, code: string) {
+    return this.httpClient.post(this.baseUrl + '/user/confirm-email', {
+      email: email,
+      code: code,
+    });
+  }
+
   // ** Save tokens to local storage ** //
   saveTokensToLocalStorage(tokens: any) {
     if (this.platformService.isBrowser()) {

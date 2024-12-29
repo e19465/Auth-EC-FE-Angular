@@ -14,6 +14,8 @@ import { AdminAndTeacherComponent } from './pages/authorized/admin-and-teacher/a
 import { AdminOnlyComponent } from './pages/authorized/admin-only/admin-only.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { claimReqUtils } from './shared/utils/claimReqUtils';
+import { SendVerificationEmailComponent } from './pages/auth/send-verification-email/send-verification-email.component';
+import { ConfirmEmailComponent } from './pages/auth/confirm-email/confirm-email.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +25,14 @@ export const routes: Routes = [
   {
     path: 'sign-in',
     component: LoginComponent,
+  },
+  {
+    path: 'send-verification-email',
+    component: SendVerificationEmailComponent,
+  },
+  {
+    path: 'confirm-email',
+    component: ConfirmEmailComponent,
   },
   {
     path: '',

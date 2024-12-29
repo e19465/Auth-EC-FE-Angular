@@ -177,12 +177,24 @@
       {{ loading ? "Loading..." : "Register" }}
     </button>
 
-    <!-- Already have an account? Sign in -->
-    <div class="w-full flex items-center justify-center gap-2">
-      <span class="text-blue-900">Already have an account?</span>
-      <a [routerLink]="['/', 'sign-in']" class="text-blue-500 underline">
-        Sign in
-      </a>
+    <div class="w-full flex flex-col items-center justify-center gap-1">
+      <!-- Already have an account? Sign in -->
+      <div class="w-full flex items-center justify-center gap-2">
+        <span class="text-blue-900">Already have an account?</span>
+        <a [routerLink]="['/', 'sign-in']" class="text-blue-500 underline">
+          Sign in
+        </a>
+      </div>
+
+      <!-- Send verification email -->
+      <div class="w-full flex items-center justify-center gap-2">
+        <span class="text-blue-900">Verify Account?</span>
+        <a
+          [routerLink]="['/', 'send-verification-email']"
+          class="text-blue-500 underline"
+          >Send verification email
+        </a>
+      </div>
     </div>
   </form>
 </app-auth-layout>
