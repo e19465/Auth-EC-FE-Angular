@@ -31,7 +31,7 @@ body {
 // ** customize ngx-toastr ** //
 .toast-success,
 .toast-error {
-  min-width: 400px;
+  min-width: 200px;
   max-width: 600px;
   font-size: 16px;
   border-radius: 10px !important;
@@ -42,4 +42,18 @@ body {
 
 .toast-success {
   background-color: rgb(26, 150, 26) !important;
+}
+
+@media (min-width: 768px) {
+  .toast-success,
+  .toast-error {
+    min-width: 300px; /* Tablets and medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .toast-success,
+  .toast-error {
+    min-width: 400px; /* Desktops and larger screens */
+  }
 }
